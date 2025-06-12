@@ -32,7 +32,7 @@ spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
 async def mood(ctx, *, mood):
     mood = mood + ' playlist'
     result = spotify.search(q=mood, type='playlist', limit=10)
-    await ctx.send(f"Here are some {mood}!")
+    await ctx.send(f"Hey, {ctx.author}! Here are some {mood}!")
     lst = []
     for playlist in result['playlists']['items']:
         try:
