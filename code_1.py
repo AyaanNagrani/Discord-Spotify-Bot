@@ -30,13 +30,20 @@ spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
 
 @bot.command()
 async def mood(ctx, *, mood):
-    # try:
     mood = mood + ' playlist'
-    result = spotify.search(q=mood, type='playlist', limit=5)
+    result = spotify.search(q=mood, type='playlist', limit=10)
     await ctx.send(f"Here are some {mood}!")
-    for num, playlist in enumerate(result['playlists']['items']):
-        if playlist['name'] and playlist['owner']['display_name']:
-            await ctx.send(f"Playlist {num+1}: {playlist['name']} by {playlist['owner']['display_name']}")
+    lst = []
+    for playlist in result['playlists']['items']:
+        try:
+            lst.append(f"-{playlist['name']} by {playlist['owner']['display_name']}")
+        except TypeError:
+            continue
+    await ctx.send("\n".join(lst))
+
+    
+    
+
 
 
    
